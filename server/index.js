@@ -8,7 +8,7 @@ process.on("uncaughtException", (error) => {
         process.exit(1);
     })
 })
-connectToDB();
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -18,7 +18,10 @@ cloudinary.config({
 });
 
 
-const server = app.listen(process.env.PORT, () => console.log(`listening on port ${process.env.PORT}`));
+const server = app.listen(process.env.PORT, () => {
+    connectToDB();
+    console.log(`listening on port ${process.env.PORT}`)
+});
 
 
 process.on('unhandledRejection', (error) => {
